@@ -1,7 +1,6 @@
 import { App, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import decode from 'jwt-decode';
 import { ConfiguredAgent, getAgent } from './veramo'
-
+import { CredentialVerifier } from './CredentialVerifier'
 interface VeramoPluginSettings {
 	infuraProjectId: string;
 }
@@ -19,29 +18,26 @@ export default class VeramoPlugin extends Plugin {
 		this.agent = getAgent({ infuraProjectId: this.settings.infuraProjectId })
 
 		this.addSettingTab(new VeramoSettingTab(this.app, this));
-		
-		this.registerMarkdownCodeBlockProcessor("jwt+vc", (source, el, ctx) => {
-			try {
-				const decoded = decode(source)
-				el.createEl('pre', {text: JSON.stringify(decoded, null, 2)})
 
-			} catch (e) {
-				el.createDiv({text: source})
+		this.registerMarkdownCodeBlockProcessor(
+			"jwt+vc", 
+			(source, el, ctx) => {
+				const credential = {
+					proof: {
+						type: "JwtProof2020",
+						jwt: source
+					}
+				}
+				ctx.addChild(new CredentialVerifier(el, JSON.stringify(credential), this.agent))
 			}
-    });
+		);
 
-		this.registerMarkdownCodeBlockProcessor("json+vc", async (source, el, ctx) => {
-			try {
-				const result = await this.agent.verifyCredential({
-					credential: JSON.parse(source)
-				})
-				el.createEl('pre', {text: JSON.stringify(result, null, 2)})
-
-			} catch (e) {
-				el.createDiv({text: source})
+		this.registerMarkdownCodeBlockProcessor(
+			"json+vc", 
+			(source, el, ctx) => {
+				ctx.addChild(new CredentialVerifier(el, source, this.agent))
 			}
-    });
-
+		);
 	}
 
 	onunload() {
