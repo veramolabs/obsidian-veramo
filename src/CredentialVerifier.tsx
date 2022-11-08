@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
-import { MarkdownRenderChild } from 'obsidian';
+import { App, MarkdownRenderChild } from 'obsidian';
 import { CredentialVerificationView } from "./CredentialVerificationView";
 import { ConfiguredAgent } from './veramo';
 
@@ -9,12 +9,14 @@ export class CredentialVerifier extends MarkdownRenderChild {
 
   text: string;
   agent: ConfiguredAgent
+  app: App
 
-  constructor(containerEl: HTMLElement, text: string, agent: ConfiguredAgent) {
+  constructor(containerEl: HTMLElement, text: string, agent: ConfiguredAgent, app: App) {
     super(containerEl);
 
     this.text = text;
     this.agent = agent;
+    this.app = app;
   }
 
   async onload() {
@@ -26,7 +28,7 @@ export class CredentialVerifier extends MarkdownRenderChild {
       createRoot(this.containerEl)
         .render(
           <React.StrictMode>
-            <CredentialVerificationView verifyResult={result} />
+            <CredentialVerificationView verifyResult={result} app={this.app}/>
           </React.StrictMode>
         );
   

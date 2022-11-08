@@ -28,14 +28,14 @@ export default class VeramoPlugin extends Plugin {
 						jwt: source
 					}
 				}
-				ctx.addChild(new CredentialVerifier(el, JSON.stringify(credential), this.agent))
+				ctx.addChild(new CredentialVerifier(el, JSON.stringify(credential), this.agent, this.app))
 			}
 		);
 
 		this.registerMarkdownCodeBlockProcessor(
 			"json+vc", 
 			(source, el, ctx) => {
-				ctx.addChild(new CredentialVerifier(el, source, this.agent))
+				ctx.addChild(new CredentialVerifier(el, source, this.agent, this.app))
 			}
 		);
 	}
