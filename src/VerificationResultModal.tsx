@@ -11,21 +11,30 @@ export class VerificationResultModal extends Modal {
     super(app);
     this.verifyResult = verifyResult;
   }
-
-  onOpen() {
-    // this.contentEl.setText("Look at me, I'm a modal! 👀");
-    // this.containerEl.
-    createRoot(this.contentEl)
-    .render(
-      <React.StrictMode>
-        <h2>Verification result</h2>
-        <pre>{JSON.stringify(this.verifyResult, null, 2)}</pre>
-      </React.StrictMode>
-    );
-  }
-
+  
   onClose() {
     this.contentEl.empty();
     ReactDOM.unmountComponentAtNode(this.contentEl);
   }
+
+  onOpen() {
+    createRoot(this.contentEl)
+      .render(
+        <React.StrictMode>
+          <h3>Issuer</h3>
+          <p>{this.verifyResult.issuer}</p>
+
+          <h3>DID Document</h3>
+          <p><pre className="veramo__pre">{JSON.stringify(this.verifyResult.didResolutionResult.didDocument, null, 2)}</pre></p>
+
+          <h3>Signer</h3>
+          <p><pre className="veramo__pre">{JSON.stringify(this.verifyResult.signer, null, 2)}</pre></p>
+
+          <h3>Credential</h3>
+          <p><pre className="veramo__pre">{JSON.stringify(this.verifyResult.verifiableCredential, null, 2)}</pre></p>
+        </React.StrictMode>
+      );
+  }
+
+
 }
