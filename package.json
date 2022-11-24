@@ -24,6 +24,7 @@
 		"typescript": "4.7.4"
 	},
 	"dependencies": {
+		"@veramo-community/react-components": "^1.1.2",
 		"@veramo/core": "^4.1.1",
 		"@veramo/credential-w3c": "^4.1.1",
 		"@veramo/did-resolver": "^4.1.1",

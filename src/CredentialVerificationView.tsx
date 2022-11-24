@@ -1,7 +1,7 @@
 import * as React from "react";
 import { App, } from "obsidian";
 import { IVerifyResult, VerifiableCredential } from "@veramo/core";
-import { CredentialView } from "./CredentialView"
+import { VerifiableCredential as VerifiableCredentialView} from "@veramo-community/react-components"
 import { formatRelative } from 'date-fns';
 import { VerificationResultModal } from './VerificationResultModal'
 
@@ -16,7 +16,7 @@ export const CredentialVerificationView = ({ verifyResult, app } : { verifyResul
     {verifyResult.error && <p>Error: {verifyResult.error.message}</p>}
     {!verifyResult.error 
       && verifyResult.verified 
-      && <CredentialView credential={credential} />}
+      && <VerifiableCredentialView credential={credential} />}
     
     {verifyResult.verified && <div className="veramo__verification_result_footer" onClick={showModal} >
       <svg
