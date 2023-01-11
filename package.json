@@ -24,8 +24,10 @@
 		"typescript": "4.7.4"
 	},
 	"dependencies": {
+		"@transmute/credentials-context": "^0.7.0-unstable.77",
 		"@veramo-community/react-components": "^1.1.2",
 		"@veramo/core": "^4.1.1",
+		"@veramo/credential-ld": "^4.1.1",
 		"@veramo/credential-w3c": "^4.1.1",
 		"@veramo/did-resolver": "^4.1.1",
 		"date-fns": "^2.29.3",

@@ -1,51 +1,35 @@
-# Obsidian Sample Plugin
+# Veramo Obsidian Plugin
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+## Example VCs to Verify in Plugin
 
-This project uses Typescript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in Typescript Definition format, which contains TSDoc comments describing what it does.
+Create a code block with "json+vc" or "jwt+vc"
 
-**Note:** The Obsidian API is still in early alpha and is subject to change at any time!
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Changes the default font color to red using `styles.css`.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+```json+vc
+{
+	"issuer": {
+		"id": "did:ethr:0x03ddbdef2b1b8040a587eaaa863b2714a20fcc63d52bdbdb71aa411121c22147dd"
+	},
+	"issuanceDate": "2023-01-11T07:46:48.108Z",
+	"@context": ["https://www.w3.org/2018/credentials/v1", "https://veramo.io/contexts/profile/v1", "https://w3id.org/security/suites/secp256k1recovery-2020/v2"],
+	"type": ["VerifiableCredential", "Profile"],
+	"credentialSubject": {
+		"id": "did:ethr:0x03ddbdef2b1b8040a587eaaa863b2714a20fcc63d52bdbdb71aa411121c22147dd",
+		"name": "IIW Agent"
+	},
+	"proof": {
+		"type": "EcdsaSecp256k1RecoverySignature2020",
+		"created": "2023-01-11T07:46:48Z",
+		"verificationMethod": "did:ethr:0x03ddbdef2b1b8040a587eaaa863b2714a20fcc63d52bdbdb71aa411121c22147dd#controller",
+		"proofPurpose": "assertionMethod",
+		"jws": "eyJhbGciOiJFUzI1NkstUiIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..X2xxAXD4wQHKkKihxTMDCPNGfDNwsAmkv3cNi_JcSbYAQD4inBcEz6qm6jpCSC5J4pH5z1G8e6LLHoLlidgECAA"
+	}
+}
+```
 
-## First time developing plugins?
-
-Quick starting guide for new plugin devs:
-
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
-
-## Releasing new releases
-
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
-
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
-
-## Adding your plugin to the community plugin list
-
-- Check https://github.com/obsidianmd/obsidian-releases/blob/master/plugin-review.md
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+```jwt+vc
+eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QifQ.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiUHJvZmlsZSJdLCJjcmVkZW50aWFsU3ViamVjdCI6eyJzdGF0ZW1lbnQiOiJJIGFtIHRoZSBldGhyIERJRCBmb3IgdGhlIHZlcmFtbyBoZXJva3UgYWdlbnQifX0sInN1YiI6ImRpZDpldGhyOjB4MDNkZGJkZWYyYjFiODA0MGE1ODdlYWFhODYzYjI3MTRhMjBmY2M2M2Q1MmJkYmRiNzFhYTQxMTEyMWMyMjE0N2RkIiwibmJmIjoxNjczNDE5ODIzLCJpc3MiOiJkaWQ6ZXRocjoweDAzZGRiZGVmMmIxYjgwNDBhNTg3ZWFhYTg2M2IyNzE0YTIwZmNjNjNkNTJiZGJkYjcxYWE0MTExMjFjMjIxNDdkZCJ9.osrtF4Vwty07zd0VoxsL-LtYvSZ1EtX-yyLonmq7gMSSVN00gZAOTaPCAUXNSiUH2PmCIEr3cYYDKZp4idZLhw
+```
 
 ## How to use
 

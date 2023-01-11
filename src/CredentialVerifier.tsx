@@ -21,14 +21,15 @@ export class CredentialVerifier extends MarkdownRenderChild {
 
   async onload() {
     try {
+      const credential = JSON.parse(this.text)
       const result = await this.agent.verifyCredential({
-        credential: JSON.parse(this.text)
+        credential
       });
-  
+
       createRoot(this.containerEl)
         .render(
           <React.StrictMode>
-            <CredentialVerificationView verifyResult={result} app={this.app}/>
+            <CredentialVerificationView verifyResult={result} originalCredential={credential} app={this.app}/>
           </React.StrictMode>
         );
   
