@@ -5,9 +5,8 @@ import { VerifiableCredential as VerifiableCredentialView} from "@veramo-communi
 import { formatRelative } from 'date-fns';
 import { VerificationResultModal } from './VerificationResultModal'
 
-export const CredentialVerificationView = ({ verifyResult, app } : { verifyResult: IVerifyResult, app: App }) => {
-  const credential = verifyResult.verifiableCredential as VerifiableCredential
-
+export const CredentialVerificationView = ({ verifyResult, originalCredential, app } : { verifyResult: IVerifyResult, originalCredential: any, app: App }) => {
+  const credential = verifyResult.verifiableCredential || originalCredential
   const showModal = () => {
     new VerificationResultModal(verifyResult, app).open()
   }
